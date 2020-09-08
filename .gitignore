@@ -1,3 +1,6 @@
 # IntelliJ IDEA
 .idea
 *.iml
+
+# Security
+src/main/resources/config.properties
