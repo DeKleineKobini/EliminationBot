@@ -1,5 +1,6 @@
 package eu.torned.eliminationbot;
 
+import eu.torned.eliminationbot.listeners.Listeners;
 import eu.torned.eliminationbot.tornapi.APIHelper;
 import eu.torned.eliminationbot.tornapi.responses.torn.Competition;
 import eu.torned.eliminationbot.tornapi.responses.torn.Team;
@@ -20,25 +21,16 @@ public class EliminationBot {
 
     private JDA jda;
 
+    private Settings settings;
     private APIHelper apiHelper;
 
-    private String team;
+    public EliminationBot() throws LoginException, InterruptedException, IOException {
+        this.settings = new Settings("config.properties");
+        this.apiHelper = new APIHelper(settings.getApiKey());
 
-    public static void main(String[] args) {
-        try {
-            EliminationBot bot = new EliminationBot(args[0], args[1], args[2]);
-        } catch (LoginException | InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public EliminationBot(String token, String apiKey, String team) throws LoginException, InterruptedException {
-        this.apiHelper = new APIHelper(apiKey);
-
-        createBot(token);
+        createBot(settings.getDiscordToken());
 
         try {
-
             Torn torn = apiHelper.makeRequest("torn", "competition", Torn.class);
             if (torn.getCompetition() != null) {
                 Competition competition = torn.getCompetition();
@@ -54,10 +46,16 @@ public class EliminationBot {
             } else {
                 System.out.printf("ERROR - %s ", torn.getError());
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            EliminationBot bot = new EliminationBot();
+        } catch (LoginException | InterruptedException | IOException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -69,9 +67,15 @@ public class EliminationBot {
 
         jda.awaitReady();
 
-        jda.getGuilds().forEach(guild -> {
-            System.out.printf("Guild: %s%n", guild.getName());
-        });
+        jda.getGuilds().forEach(guild -> System.out.printf("Guild: %s%n", guild.getName()));
+    }
+
+    public APIHelper getApiHelper() {
+        return apiHelper;
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 
 }

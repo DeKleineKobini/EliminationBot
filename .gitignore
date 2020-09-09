@@ -3,4 +3,4 @@
 *.iml
 
 # Security
-src/main/resources/config.properties
+config.properties
