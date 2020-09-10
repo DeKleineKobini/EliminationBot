@@ -31,7 +31,7 @@ build/
 .vscode/
 
 ### Project ###
-config.properties
+**/config.properties
 
 ### application-dev ###
 **/src/main/resources/application-dev.yml
