@@ -60,7 +60,8 @@ public class Listeners implements EventListener {
                                                 .setColor(Color.RED)
                                                 .setDescription(String.format("%s [%s] is requesting access.", u2.getName(), u2.getPlayerId()))
                                                 .addField("Status", "Not in a team!", true)
-                                                .setAuthor(user.getAsTag())
+                                                .addField("User", user.getAsMention(), false)
+                                                .setAuthor(user.getAsMention())
                                                 .build())
                                         .queue();
                             } else if (competition.getTeam().equalsIgnoreCase("")) { // teams not yet public
@@ -70,7 +71,8 @@ public class Listeners implements EventListener {
                                                 .setColor(Color.ORANGE)
                                                 .setDescription(String.format("%s [%s] is requesting access.", u2.getName(), u2.getPlayerId()))
                                                 .addField("Status", "Manual verification required.", false)
-                                                .setAuthor(user.getAsTag())
+                                                .addField("User", user.getAsMention(), false)
+                                                .setAuthor(user.getAsMention())
                                                 .build())
                                         .queue();
                             } else if (competition.getTeam().equalsIgnoreCase(settings.getEliminationTeam())) { // correct team
@@ -80,7 +82,8 @@ public class Listeners implements EventListener {
                                                 .setColor(Color.GREEN)
                                                 .setDescription(String.format("%s [%s] is requesting access.", u2.getName(), u2.getPlayerId()))
                                                 .addField("Status", "Verified!", false)
-                                                .setAuthor(user.getAsTag())
+                                                .addField("User", user.getAsMention(), false)
+                                                .setAuthor(user.getAsMention())
                                                 .build())
                                         .queue();
 
@@ -92,7 +95,8 @@ public class Listeners implements EventListener {
                                                 .setColor(Color.RED)
                                                 .setDescription(String.format("%s [%s] is requesting access.", u2.getName(), u2.getPlayerId()))
                                                 .addField("Status", "Another team: " + competition.getTeam(), false)
-                                                .setAuthor(user.getAsTag())
+                                                .addField("User", user.getAsMention(), false)
+                                                .setAuthor(user.getAsMention())
                                                 .build())
                                         .queue();
                             }
@@ -107,8 +111,9 @@ public class Listeners implements EventListener {
                                 .sendMessage(new EmbedBuilder()
                                         .setTitle("Verifying")
                                         .setColor(Color.RED)
-                                        .addField("Status", "Unknown player.", false)
-                                        .setAuthor(user.getAsTag())
+                                        .addField("Status", String.format("Unknown player.", user.getAsMention()), false)
+                                        .addField("User", user.getAsMention(), false)
+                                        .setAuthor(user.getAsMention())
                                         .build())
                                 .queue();
                     }

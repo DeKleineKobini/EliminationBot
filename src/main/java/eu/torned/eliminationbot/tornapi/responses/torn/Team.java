@@ -1,10 +1,12 @@
 package eu.torned.eliminationbot.tornapi.responses.torn;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Team {
 
     private int position;
@@ -15,6 +17,6 @@ public class Team {
     private int lives;
     private Object participants;
     private Object wins;
-    private Object looses;
+    private Object losses;
 
 }
