@@ -1,4 +1,6 @@
 src/main/resources/config.properties
+config.properties
+*.properties
 
 ## IntelliJ IDEA
 .idea/**
